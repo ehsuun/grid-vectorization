@@ -12,10 +12,19 @@ mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release -GNinja
 ninja
-./IGSV_bin -i ../data/fish.png
 ```
 
-## Usage
+## Basic usage
+```
+./IGSV_bin -i ../data/fish.png -n 0.3 -s 2
+```
+
+The above command will vectorize the `fish.png` with narrow band size `0.3` and scale set to `2`.
+The output will be written to `../data/fish.svg` and shown in gui (if available):
+
+![fish screenshot](data/fish_screenshot.png)
+
+## Command line options
 
 *Available soon.*
 
