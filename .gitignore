@@ -2,7 +2,6 @@
 *.gch
 .idea
 *build*/
-debug/
 data-debug/
 img/
 serialized*/
