@@ -1,6 +1,6 @@
 [submodule "libigl"]
 	path = ext/libigl
-	url = git@gitlab.inria.fr:integer-grid-sketch-vectorization/igsv-libigl.git
+	url = https://gitlab.inria.fr/tstanko/igsv-libigl.git
 [submodule "ext/eigen"]
 	path = ext/eigen
 	url = https://github.com/eigenteam/eigen-git-mirror
