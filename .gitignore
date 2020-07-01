@@ -1,0 +1,14 @@
+.DS_Store
+*.gch
+.idea
+*build*/
+debug/
+data-debug/
+img/
+serialized*/
+svg*/
+*.pdf
+.idea/
+DEBUG.md
+data/*.svg
+data/*.state
