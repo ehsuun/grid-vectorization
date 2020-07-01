@@ -383,7 +383,7 @@ namespace IGSV {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);           // Required on Mac
 #endif
     // Create window with graphics context
-    window = glfwCreateWindow(this->window_w, this->window_h, "Simple Things", nullptr, nullptr);
+    window = glfwCreateWindow(this->window_w, this->window_h, "Grid Vectorization", nullptr, nullptr);
     if (!window)
       return false;
     glfwMakeContextCurrent(window);
