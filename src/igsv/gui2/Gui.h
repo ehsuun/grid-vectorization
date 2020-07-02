@@ -28,7 +28,6 @@ namespace IGSV {
   public:
     Gui2(cv::Mat& input, //
          cv::Mat& mask,  //
-         // cv::Mat& grid,                            //
          float& narrow_band_radius, //
          float& scale_multiplier,   //
          float& mask_factor,        //
@@ -46,7 +45,6 @@ namespace IGSV {
          )                          //
         : _input(input),            //
           _mask(mask),              //
-          // _grid(grid),                             //
           _narrow_band_radius(narrow_band_radius), //
           _scale_multiplier(scale_multiplier),     //
           _mask_factor(mask_factor),               //
@@ -213,7 +211,7 @@ namespace IGSV {
     bool isMaskBeingEdited  = false;
     bool showWireframe      = false;
     int selectedTexture     = 0;
-    int gridThickness       = 5;
+    int gridThickness       = 3;
   };
 } // namespace IGSV
 

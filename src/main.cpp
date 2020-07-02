@@ -15,6 +15,8 @@ int main(int argc, char* argv[]) {
 
   // command line mode
   if (data.opts.misc.no_gui) {
+
+    // compute from scratch and serialize
     if (data.compute_no_gui()) {
       IGSV::log_section("serialize");
       igl::serialize(data, "state", data.opts.in.filename_input + ".state");
@@ -40,8 +42,11 @@ int main(int argc, char* argv[]) {
   // gui is available
 
   if (data.opts.in.filename_state.empty()) {
+    // compute from scratch
     data.compute_no_gui();
+
   } else {
+    // deserialize from a saved state
     igl::deserialize(data, "state", data.opts.in.filename_state);
 
     if (!data.init_sketch())
@@ -60,21 +65,8 @@ int main(int argc, char* argv[]) {
       return EXIT_FAILURE;
   }
 
-  //// old gui
-  // igl::opengl::glfw::Viewer viewer;
-  // IGSV::IGSVGui gui(data);
-  // viewer.plugins.push_back(&gui);
-  // return viewer.launch();
-
-  //// new gui
-  // cv::Mat grid_texture(100, 100, CV_8UC3);
-  // grid_texture.setTo(cv::Vec3b(255, 255, 255));
-  // cv::copyMakeBorder(grid_texture, grid_texture, 1, 1, 0, 0, CV_HAL_BORDER_CONSTANT, cv::Vec3b(255, 185, 0));
-  // cv::copyMakeBorder(grid_texture, grid_texture, 0, 0, 1, 1, CV_HAL_BORDER_CONSTANT, cv::Vec3b(0, 0, 255));
-
   IGSV::Gui2 gui2(data.input,                       //
                   data.detail_mask,                 //
-                  // grid_texture,                     //
                   data.opts.tri.narrow_band_radius, //
                   data.opts.uv.scale_multiplier,    //
                   data.opts.in.mask_factor,         //

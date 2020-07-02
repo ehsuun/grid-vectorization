@@ -149,58 +149,95 @@ namespace IGSV {
     // if (ImGui::Combo("##texture type", &selectedTexture, _texture_labels.data(), _texture_labels.size()))
     //   set_texture_from_image(this->textureID[0], *_textures[selectedTexture], _texture_normalize[selectedTexture]);
 
-    if (ImGui::SliderInt("##gridThickness", &this->gridThickness, 1, 10, "grid thickness: %d")) {
-      init_grid_texture();
-    }
+    //-------------------------------------------------------------------------
 
-    ImGui::SliderFloat("##lineThickness", &this->lineThickness, 0.0f, 10.0f, "line thickness: %0.2f");
-    ImGui::SliderFloat("##pointSize", &this->pointSize, 0.0f, 100.0f, "point size: %0.2f");
-    ImGui::SliderInt("##brush_size", &this->brushSize, 1, 50, "brush size: %dpx");
-    ImGui::Checkbox("show image", &this->enableImageTexture);
-    ImGui::Checkbox("show wireframe", &this->showWireframe);
-    ImGui::Checkbox("edit mask", &this->enableMaskEditing);
-
-    ImGui::SliderFloat("##_narrow_band_radius", &this->_narrow_band_radius, 0.01f, 10.0f, "band = %0.2f");
-    ImGui::SliderFloat("##_scale_multiplier", &this->_scale_multiplier, 1.0f, 10.0f, "scale = %0.1f");
-    // ImGui::SliderFloat("##_mask_factor", &this->_mask_factor, 0.25f, 4.0f, "maskf = %0.2f");
-
-    if (ImGui::Button("recompute parametrization")) {
-      if (_callback) {
-        _callback_success = _callback();
-        if (_callback_success) {
-          this->update_structures();
-          this->fill_vertex_arrays__edges();
-          this->fill_vertex_arrays__points();
-          this->fill_vertex_arrays__triangles();
+    // ImGui::SetNextTreeNodeOpen(_is_open, ImGuiCond_FirstUseEver);
+    if (ImGui::TreeNode("Parametrization")) {
+      ImGui::PushItemWidth(200);
+      // ImGui::SliderFloat("##_narrow_band_radius", &this->_narrow_band_radius, 0.01f, 10.0f, "band = %0.2f");
+      ImGui::SliderFloat("##_scale_multiplier", &this->_scale_multiplier, 1.0f, 10.0f, "scale = %0.1f");
+      // ImGui::SliderFloat("##_mask_factor", &this->_mask_factor, 0.25f, 4.0f, "maskf = %0.2f");
+      ImGui::Checkbox("edit mask", &this->enableMaskEditing);
+      if (this->enableMaskEditing)
+        ImGui::SliderInt("##brush_size", &this->brushSize, 1, 50, "brush size: %dpx");
+      if (ImGui::Button("recompute uv")) {
+        if (_callback) {
+          _callback_success = _callback();
+          if (_callback_success) {
+            this->update_structures();
+            this->fill_vertex_arrays__edges();
+            this->fill_vertex_arrays__points();
+            this->fill_vertex_arrays__triangles();
+          }
         }
       }
+      ImGui::PopItemWidth();
+      ImGui::TreePop();
     }
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Spacing();
 
-    for (auto& pair : _render_triangles)
-      if (ImGui::Checkbox((pair.first).c_str(), &pair.second.enabled))
-        this->fill_vertex_arrays__triangles();
+    //-------------------------------------------------------------------------
 
-    for (auto& pair : _render_edges)
-      if (ImGui::Checkbox((pair.first).c_str(), &pair.second.enabled))
-        this->fill_vertex_arrays__edges();
+    if (ImGui::TreeNode("Show")) {
+      for (auto& pair : _render_triangles)
+        if (ImGui::Checkbox((pair.first).c_str(), &pair.second.enabled))
+          this->fill_vertex_arrays__triangles();
 
-    for (auto& pair : _render_points)
-      if (ImGui::Checkbox((pair.first).c_str(), &pair.second.enabled))
-        this->fill_vertex_arrays__points();
+      for (auto& pair : _render_edges)
+        if (ImGui::Checkbox((pair.first).c_str(), &pair.second.enabled))
+          this->fill_vertex_arrays__edges();
 
-    ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-    const ImVec2 mouse_pos = ImGui::GetMousePos();
+      for (auto& pair : _render_points)
+        if (ImGui::Checkbox((pair.first).c_str(), &pair.second.enabled))
+          this->fill_vertex_arrays__points();
+    }
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Spacing();
 
-    static bool showDemoWindow = false;
-    ImGui::Checkbox("show ImGUi demo window", &showDemoWindow);
+    //-------------------------------------------------------------------------
 
-    if (showDemoWindow)
-      ImGui::ShowDemoWindow();
+    // ImGui::SetNextTreeNodeOpen(_is_open, ImGuiCond_FirstUseEver);
+    if (ImGui::TreeNode("Settings")) {
+      ImGui::PushItemWidth(200);
+      if (ImGui::SliderInt("##gridThickness", &this->gridThickness, 0, 6, "grid_w: %d"))
+        init_grid_texture();
+      ImGui::SliderFloat("##lineThickness", &this->lineThickness, 0.0f, 10.0f, "line_w: %0.2f");
+      ImGui::SliderFloat("##pointSize", &this->pointSize, 0.0f, 100.0f, "pt_size: %0.2f");
+      ImGui::Checkbox("show image", &this->enableImageTexture);
+      ImGui::Checkbox("show wireframe", &this->showWireframe);
+      ImGui::PopItemWidth();
+      ImGui::TreePop();
+    }
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Spacing();
 
-    //// Note: in older versions of ImGui, GetForegroundDrawList was called GetForegroundDrawList
-    // ImGui::GetForegroundDrawList()->AddCircle(mouse_pos, (float)this->brushSize * 2.f, cursorColor, 30, 2.f);
-    if (enableMaskEditing)
+
+    //-------------------------------------------------------------------------
+
+    if (ImGui::TreeNode("Misc")) {
+      ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+      static bool showDemoWindow = false;
+      ImGui::Checkbox("ImGUi demo window", &showDemoWindow);
+      if (showDemoWindow)
+        ImGui::ShowDemoWindow();
+    }
+    ImGui::Spacing();
+    ImGui::Separator();
+    ImGui::Spacing();
+
+    //-------------------------------------------------------------------------
+
+    // Show mouse cursor as circle
+    if (enableMaskEditing) {
+      const ImVec2 mouse_pos = ImGui::GetMousePos();
+      //// Note: in older versions of ImGui, GetForegroundDrawList was called GetOverlayDrawList
+      ////ImGui::GetForegroundDrawList()->AddCircle(mouse_pos, (float)this->brushSize * 2.f, cursorColor, 30, 2.f);
       ImGui::GetOverlayDrawList()->AddCircle(mouse_pos, (float)this->brushSize * 2.f, cursorColor, 30, 2.f);
+    }
 
     ImGui::End();
   }
@@ -354,8 +391,9 @@ namespace IGSV {
   //=============================================================================
 
   void Gui2::init_grid_texture() {
-    _grid = cv::Mat(100, 100, CV_8UC3);
+    _grid = cv::Mat(256, 256, CV_8UC3);
     _grid.setTo(cv::Vec3b(255, 255, 255));
+    const int padding = std::pow(2, gridThickness);
     cv::copyMakeBorder(_grid, _grid,                       //
                        gridThickness, gridThickness, 0, 0, //
                        CV_HAL_BORDER_CONSTANT,             //
@@ -1094,15 +1132,15 @@ namespace IGSV {
       for (const auto& qv : _QV) {
         _qverts.xy[i][0]  = (float)qv.x;
         _qverts.xy[i][1]  = (float)qv.y;
-        _qverts.rgb[i][0] = 0.4f;
-        _qverts.rgb[i][1] = 0.2f;
-        _qverts.rgb[i][2] = 0.1f;
+        _qverts.rgb[i][0] = 0.99f;
+        _qverts.rgb[i][1] = 0.64f;
+        _qverts.rgb[i][2] = 0.25f;
 
         _qedges.xy[i][0]  = (float)qv.x;
         _qedges.xy[i][1]  = (float)qv.y;
-        _qedges.rgb[i][0] = 0.6f;
-        _qedges.rgb[i][1] = 0.3f;
-        _qedges.rgb[i][2] = 0.2f;
+        _qedges.rgb[i][0] = 0.90f;
+        _qedges.rgb[i][1] = 0.50f;
+        _qedges.rgb[i][2] = 0.20f;
 
         i++;
       }
