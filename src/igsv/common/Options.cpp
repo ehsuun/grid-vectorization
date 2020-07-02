@@ -38,9 +38,6 @@ namespace IGSV {
         ("mask-factor,f", po::value<float>(&in.mask_factor)->default_value(2.0), //
          "scale factor for user mask (default: 2)")
         //
-        ("force", po::bool_switch(&misc.compute_from_scratch), //
-         "force recomputation -- disable deserialization (default: false, i.e. deserialization is enabled)")
-        //
         ("no-gui", po::bool_switch(&misc.no_gui), //
          "disable gui")
         //
