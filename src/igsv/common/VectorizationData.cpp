@@ -229,6 +229,8 @@ namespace IGSV {
     COMISO::StopWatch timer;
     timer.start();
 
+    clear_extraction();
+
     if (!sanitize_parametrization())
       return false;
 
