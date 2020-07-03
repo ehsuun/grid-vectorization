@@ -30,19 +30,19 @@ namespace IGSV {
          "binarization threshold")
         //
         ("narrow-band-radius,n", po::value<float>(&tri.narrow_band_radius)->default_value(0.3),
-         "maximal distance (relative to estimated average stroke width) of narrow band triangles from dark pixels")
+         "maximal distance (relative to the average stroke width) of narrow band triangles from dark pixels")
         //
         ("scale-multiplier,s", po::value<float>(&uv.scale_multiplier)->default_value(1.0), //
-         "scale multiplier (default: 1)")
+         "scale multiplier")
         //
         ("mask-factor,f", po::value<float>(&in.mask_factor)->default_value(2.0), //
-         "scale factor for user mask (default: 2)")
-        //
-        ("no-gui", po::bool_switch(&misc.no_gui), //
-         "disable gui")
+         "scale factor for user mask")
         //
         ("deserialize,d", po::value<std::string>(&in.filename_state), //
-         "deserialize filename (state)")
+         "filename of a state used for deserialization")
+        //
+        ("no-gui", po::bool_switch(&misc.no_gui), //
+         "If specified, the program will run in terminal-only mode. The parametrization will be serialized to the '${INPUT_FILENAME}.state' file, e.g. '../data/fish.png.state'.")
         //
         ;
 

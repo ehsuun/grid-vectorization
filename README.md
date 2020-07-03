@@ -1,11 +1,11 @@
 # Grid Vectorization
 
-This repository contains the C++ implementation of the paper [Integer-Grid Sketch Simplification and Vectorization](https://repo-sam.inria.fr/d3/grid-vectorization/) (SGP 2020).
+This repository contains the authors' C++ implementation of the paper [Integer-Grid Sketch Simplification and Vectorization](https://repo-sam.inria.fr/d3/grid-vectorization/) (SGP 2020).
 
 The code was developed on MacOS and tested on Fedora and Windows.
 
 ## Quick start
-```
+```shell
 git clone --recursive https://gitlab.inria.fr/D3/grid-vectorization.git
 cd grid-vectorization
 mkdir build
@@ -15,7 +15,8 @@ ninja
 ```
 
 ## Basic usage
-```
+### Gui mode
+```shell
 ./IGSV_bin -i ../data/fish.png -n 0.3 -s 2
 ```
 
@@ -24,11 +25,35 @@ The output will be written to `../data/fish.svg` and shown in gui (if available)
 
 ![fish screenshot](data/fish_screenshot.png)
 
-## Command line options
+### Local scale control using a mask
 
-*Available soon.*
+*TODO*
 
-For now, just execute `./IGSV_bin -h` to show help.
+### Terminal mode
+By default, the program will be run in Gui mode. You can run the program in terminal-only mode using the `--no-gui` flag.
+```shell
+./IGSV_bin -i ../data/fish.png -n 0.3 -s 2 --no-gui
+```
+In terminal-only mode, the program will also serialize the state (`../data/fish.png.state`) along with the svg (`../data/fish.svg`).
+The state can later be deserialized and shown in gui using the `--deserialize` or `-d` flag:
+```shell
+./IGSV_bin -i ../data/fish.png -d ../data/fish.png.state
+```
+
+## List of command line flags
+
+| flag | description | default value |
+| :--- | :---  | :---  |
+| `-h, --help`  | Show the help in command line. | |
+| `-i, --input` | Input filename (bitmap) | |
+| `-o, --output` | Output filename (svg) | |
+| `-b, --threshold` | Threhold for input image binarization. | 165 |
+| `-n, --narrow-band-radius` | Relative radius of the narrow band (w.r.t. average stroke width). | 0.3 |
+| `-s, --scale-multiplier` | Scale multiplier. Controls the scale of the grid: bigger value = coarser grid = more simplifiation. | 1.0 |
+| `-m, --mask`  | Mask filename (greyscale bitmap) | |
+| `-f, --mask-factor` | Scale factor for the mask. | 2.0 |
+| `-d, --deserialize` | If specified, the parametrization will be deserialized from a `.state` file. | |
+| `--no-gui` | If specified, the program will run in terminal-only mode. The parametrization will be serialized to a `${INPUT_FILENAME}.state` file, e.g. `../data/fish.png.state`. | |
 
 ## Dependencies (included)
 - [alglib](https://www.alglib.net/)
@@ -42,4 +67,8 @@ For now, just execute `./IGSV_bin -h` to show help.
 We also provide an optional gui, which is built on top of [Dear ImGui](https://github.com/ocornut/imgui), [GLFW](https://www.glfw.org/) and [Glad](https://glad.dav1d.de/).
 
 ## License
-GNU GPLv3
+The code in this repository except for the external dependencies is provided under the GNU GPLv3 License.
+The external dependencies (`ext/` folder) are provided under their respective licences.
+
+## Contact
+For any questions regarding the paper or the implementation, please contact Tibor Stanko ([tibor.stanko@inria.fr](tibor.stanko@inria.fr) or [tibor.stanko@gmail.com](tibor.stanko@gmail.com)). If you find a bug, please let us know, or submit a PR.
