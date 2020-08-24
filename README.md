@@ -21,16 +21,16 @@ ninja
 ```
 
 The above command will vectorize the `fish.png` with narrow band size `0.3` and scale set to `2`.
-The output will be written to `../data/fish.svg` and shown in gui (if available):
+The output will be written to `../data/fish.svg` and shown in gui:
 
 ![fish screenshot](data/fish_screenshot.png)
 
 ### Local scale control using a mask
 
-*TODO*
+**TODO**
 
 ### Terminal mode
-By default, the program will be run in Gui mode. You can run the program in terminal-only mode using the `--no-gui` flag.
+By default, the program will be run in gui mode. You can run the program in terminal-only mode using the `--no-gui` flag.
 ```shell
 ./IGSV_bin -i ../data/fish.png -n 0.3 -s 2 --no-gui
 ```
@@ -42,27 +42,30 @@ The state can later be deserialized and shown in gui using the `--deserialize` o
 
 ## List of command line flags
 
-| flag | description | default value |
+| flag | default value | description |
 | :--- | :---  | :---  |
-| `-h, --help`  | Show the help in command line. | |
-| `-i, --input` | Input filename (bitmap) | |
-| `-o, --output` | Output filename (svg) | |
-| `-b, --threshold` | Threhold for input image binarization. | 165 |
-| `-n, --narrow-band-radius` | Relative radius of the narrow band (w.r.t. average stroke width). | 0.3 |
-| `-s, --scale-multiplier` | Scale multiplier. Controls the scale of the grid: bigger value = coarser grid = more simplifiation. | 1.0 |
-| `-m, --mask`  | Mask filename (greyscale bitmap) | |
-| `-f, --mask-factor` | Scale factor for the mask. | 2.0 |
-| `-d, --deserialize` | If specified, the parametrization will be deserialized from a `.state` file. | |
-| `--no-gui` | If specified, the program will run in terminal-only mode. The parametrization will be serialized to a `${INPUT_FILENAME}.state` file, e.g. `../data/fish.png.state`. | |
+| `-h, --help`  | | Show the help in command line. |
+| `-i, --input` | | Input filename (bitmap) |
+| `-o, --output` | | Output filename (svg) |
+| `-b, --threshold` | 165 | Threhold for input image binarization. |
+| `-n, --narrow-band-radius` |  0.3 |Relative radius of the narrow band (w.r.t. average stroke width). |
+| `-s, --scale-multiplier` | 1.0 | Scale multiplier. Controls the scale of the grid: bigger value = coarser grid = more simplifiation. |
+| `-m, --mask`  | | Mask filename (greyscale bitmap) |
+| `-f, --mask-factor` | 2.0 | Scale factor for the mask. |
+| `-d, --deserialize` | | If specified, the parametrization will be deserialized from a `.state` file. |
+| `--no-gui` | | If specified, the program will run in terminal-only mode. The parametrization will be serialized to a `${INPUT_FILENAME}.state` file, e.g. `../data/fish.png.state`. |
 
-## Dependencies (included)
-- [alglib](https://www.alglib.net/)
-- [CGAL](https://www.cgal.org/)
-- [CoMISo](https://www.graphics.rwth-aachen.de/software/comiso/)
-- [Eigen](http://eigen.tuxfamily.org/index.php?title=Main_Page)
-- [libigl](https://libigl.github.io/)
-- [simple-svg](https://code.google.com/archive/p/simple-svg/)
-- [Triangle](https://www.cs.cmu.edu/~quake/triangle.html)
+## Dependencies
+- included:
+    - [alglib](https://www.alglib.net/)
+    - [CoMISo](https://www.graphics.rwth-aachen.de/software/comiso/)
+    - [simple-svg](https://code.google.com/archive/p/simple-svg/)
+- submodules:
+    - [Eigen](http://eigen.tuxfamily.org/)
+    - [libigl](https://libigl.github.io/)
+- downloaded by libigl:
+    - [CGAL](https://www.cgal.org/)
+    - [Triangle](https://www.cs.cmu.edu/~quake/triangle.html)
 
 We also provide an optional gui, which is built on top of [Dear ImGui](https://github.com/ocornut/imgui), [GLFW](https://www.glfw.org/) and [Glad](https://glad.dav1d.de/).
 
