@@ -5,6 +5,7 @@
 #ifndef IGSV_DRAWABLE_H
 #define IGSV_DRAWABLE_H
 
+#include <array>
 #include <vector>
 namespace IGSV {
   namespace drawable {
