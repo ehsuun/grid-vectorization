@@ -1,0 +1,7 @@
+build_linux:
+   stage: build
+   script:
+      - mkdir build-release-ci
+      - cd mkdir build-release-ci
+      - cmake .. -GNinja -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+      - ninja
