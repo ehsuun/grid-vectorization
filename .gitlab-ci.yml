@@ -2,8 +2,8 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
 build_linux:
    stage: build
-   before_script:
-      - sudo apt update & sudo apt install -y clang llvm ninja cmake libblas-dev libboost-dev libboost-filesystem-dev libboost-graph-dev libboost-program-options-dev libboost-thread-dev libgl-dev libgmp-dev libmpfr-dev libopencv-dev libxcb-xinput-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev xrandr-dev     
+   #before_script:
+   #   - sudo apt update & sudo apt install -y clang llvm ninja cmake libblas-dev libboost-dev libboost-filesystem-dev libboost-graph-dev libboost-program-options-dev libboost-thread-dev libgl-dev libgmp-dev libmpfr-dev libopencv-dev libxcb-xinput-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev xrandr-dev     
    script:
       - mkdir build-release-ci
       - cd build-release-ci
