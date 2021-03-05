@@ -2,16 +2,31 @@
 
 This repository contains the authors' C++ implementation of the paper [Integer-Grid Sketch Simplification and Vectorization](https://repo-sam.inria.fr/d3/grid-vectorization/) (SGP 2020).
 
-The code was developed on MacOS and tested on Fedora and Windows.
+The code was developed on MacOS and tested on Linux (Ubuntu, Fedora) and Windows.
 
 ## Quick start
+
+### Setup
+Run the following to install the required packages on Ubuntu (tested on Ubuntu 20.04LTS):
+
+```shell
+sudo apt install cmake libblas-dev libboost-dev libboost-filesystem-dev libboost-graph-dev libboost-program-options-dev libboost-thread-dev libgl-dev libgmp-dev libmpfr-dev libopencv-dev libxcb-xinput-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev
+```
+
+Optionally, if you want to use [llvm clang](https://clang.llvm.org/) and/or [ninja](https://ninja-build.org/):
+```shell
+sudo apt install llvm
+sudo apt install ninja-build
+```
+
+### Building
 ```shell
 git clone --recursive https://gitlab.inria.fr/D3/grid-vectorization.git
 cd grid-vectorization
 mkdir build
 cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -GNinja
-ninja
+cmake .. -DCMAKE_BUILD_TYPE=Release -GNinja # replace -GNinja by your favorite build system
+ninja                                       # replace   ninja by your favorite build system
 ```
 
 ## Basic usage
@@ -24,10 +39,6 @@ The above command will vectorize the `fish.png` with narrow band size `0.3` and 
 The output will be written to `../data/fish.svg` and shown in gui:
 
 ![fish screenshot](data/fish_screenshot.png)
-
-### Local scale control using a mask
-
-**TODO**
 
 ### Terminal mode
 By default, the program will be run in gui mode. You can run the program in terminal-only mode using the `--no-gui` flag.
@@ -74,4 +85,4 @@ The code in this repository except for the external dependencies is provided und
 The external dependencies (`ext/` folder) are provided under their respective licences.
 
 ## Contact
-For any questions regarding the paper or the implementation, please contact Tibor Stanko ([tibor.stanko@inria.fr](tibor.stanko@inria.fr) or [tibor.stanko@gmail.com](tibor.stanko@gmail.com)). If you find a bug, please let us know, or submit a PR.
+For any questions regarding the paper or the implementation, please contact [Tibor Stanko](http://tiborstanko.sk/). If you find a bug, please let us know, or submit a PR.
